@@ -2,6 +2,8 @@
 
 ## 时间设置
 
+
+
 ```bash
 sudo apt install ntpdate
 #安装时间同步工具
