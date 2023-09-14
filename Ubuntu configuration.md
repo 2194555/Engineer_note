@@ -61,6 +61,102 @@ wget http://fishros.com/install -O fishros && . fishros
 
 #### 安装catkin tools
 
+catkin tools官方文档：https://catkin-tools.readthedocs.io/en/latest/ 
+
+首先添加软件源
+
+```bash
+$ sudo sh \
+    -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" \
+        > /etc/apt/sources.list.d/ros-latest.list'
+$ wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+```
+
+然后安装`catkin_tools`
+
+```
+$ sudo apt-get update
+$ sudo apt-get install python3-catkin-tools
+```
+
+#### rosdep
+
+rosdep update 失败的参考解决方法：https://github.com/SparkChen927/rosdep
+
+> 也可以使用鱼香ros中的rosdepc
+
+rosdep update完成后，进入rm_ws，安装依赖
+
+```bash
+rosdep install --from-paths src --ignore-src -r -y
+```
+
+### 从主仓里clone代码
+
+ > **一定要使用ssh来clone仓库**
+
+​		[rm_manual](https://github.com/rm-controls/rm_manual)：实现键鼠操作
+
+​		[rm_config](https://github.com/gdut-dynamic-x/rm_config)：放参数的地方，也是最常修改的地方
+
+​		[rm_engineer](https://github.com/rm-controls/rm_engineer)：工程专用的包，主要实现.action类型的消息以及和manual的交互
+
+​		[rm_bringup](https://github.com/gdut-dynamic-x/rm_bringup)：开机自启，硬件映射
+
+​		[rm_control](https://github.com/rm-controls/rm_control)：一些代码中可用的工具，比如滤波器，从yaml拿参数等
+
+​		[rm_description](https://github.com/gdut-dynamic-x/rm_description)：放置仿真用的stl模型和urdf文件
+
+​		[rm_controllers](https://github.com/rm-controls/rm_controllers)：各种控制器
+
+有些软件包可能不在上面，可以在`rm_controls`或`gdut-dynamic-x`中自行寻找并clone
+
+### 优化
+
+1. 你会发现开机很慢，这是一个系统服务导致的，可以设置将其跳过。
+
+   ```
+   $ sudo vim /etc/netplan/01-netcfg.yaml`
+   ```
+
+   > 这个文件可能不叫这个名字，可能需要转到/etc/netplan这个目录下看看。
+
+   在网卡的下一级目录中增加
+
+   ```
+   optional: true
+   ```
+
+   修改完后生效设置
+
+   ```
+   $ sudo netplan apply
+   ```
+
+2. 阻止nuc休眠
+
+   nuc长时间不用会休眠，会给工作带来一定麻烦。因此需要设置阻止nuc休眠。输入以下指令：
+
+   ```
+   sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+   ```
+
+### 换内核
+
+1. 使用搜索引擎搜索xanmod，通常搜索结果第一个就是，打开 [此网站](https://xanmod.org/) 。
+2. 我们需要更换一个实时性更强的内核，这样的内核通常名字里会带有“rt”（realtime）。在这个网站往下拉会看到“Install via Terminal”(通过命令行安装)。根据提示安装自己想要的内核。
+3. 使用指令 `sudo dpkg --get-selections | grep linux-image` 来查看你想要安装的内核是否安装成功。
+4. 重启，按F2进入BIOS模式。在boot->Boot Priority勾选Fast boot。Power选项里勾选Max Performance Enabled,Dynamic Power Technology设为最长的那个，Power->Secondary Power Settings将After Power Failure设为Power on。cooling选项里将Fan Control Mode设置为Fixed，Fixed Duty Cycle设为100。**关闭安全启动**然后退出BIOS，正常启动。
+5. 测试新内核的实时性和can总线传输速率
+
+> 如果无法进入BIOS可以在终端输入
+>
+> ```
+> sudo systemctl reboot --firmware-setup
+> ```
+>
+> 会直接重启到BIOS中
+
 
 ## 安装Ubuntu Desktop
 
