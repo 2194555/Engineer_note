@@ -1,8 +1,13 @@
 # Ubuntu configuration
 
+## 安装Ubuntu Server
+
+### 
+
+## 安装Ubuntu Desktop
+
+
 ## 时间设置
-
-
 
 ```bash
 sudo apt install ntpdate
