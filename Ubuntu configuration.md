@@ -62,7 +62,6 @@ wget http://fishros.com/install -O fishros && . fishros
 #### 安装catkin tools
 
 
-
 ## 安装Ubuntu Desktop
 
 
