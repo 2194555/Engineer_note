@@ -169,3 +169,5 @@ sudo ntpdate time.windows.com
 sudo hwclock --localtime --systohc
 #把ubuntu时间模式改为与Windows相同的local time
 ```
+
+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
