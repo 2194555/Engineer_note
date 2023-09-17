@@ -93,8 +93,6 @@ rosdep install --from-paths src --ignore-src -r -y
 
 ### 从主仓里clone代码
 
- > **一定要使用ssh来clone仓库**
-
 ​		[rm_manual](https://github.com/rm-controls/rm_manual)：实现键鼠操作
 
 ​		[rm_config](https://github.com/gdut-dynamic-x/rm_config)：放参数的地方，也是最常修改的地方
