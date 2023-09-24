@@ -114,7 +114,7 @@ rosdep install --from-paths src --ignore-src -r -y
 1. 你会发现开机很慢，这是一个系统服务导致的，可以设置将其跳过。
 
    ```
-   $ sudo vim /etc/netplan/01-netcfg.yaml`
+   $ sudo vim /etc/netplan/01-netcfg.yaml
    ```
 
    > 这个文件可能不叫这个名字，可能需要转到/etc/netplan这个目录下看看。
@@ -169,5 +169,9 @@ sudo ntpdate time.windows.com
 sudo hwclock --localtime --systohc
 #把ubuntu时间模式改为与Windows相同的local time
 ```
+
+
+
+
 
 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
