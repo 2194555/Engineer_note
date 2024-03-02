@@ -159,6 +159,6 @@ wget -O - http://dynamicx.com/key/public.key | sudo apt-key add -
 
 \# 更新软件源
 
-```sql
+```bash
 sudo apt update
 ```
